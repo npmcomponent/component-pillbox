@@ -6,7 +6,10 @@ var Emitter = require('emitter')
   , keyname = require('keyname')
   , events = require('events')
   , each = require('each')
-  , Set = require('set');
+  , Set = require('set')
+  , bind = require('bind')
+  , trim = require('trim')
+  , normalize = require('normalize');
 
 /**
  * Expose `Pillbox`.
@@ -30,7 +33,11 @@ function Pillbox(input, options) {
   this.tags = new Set;
   this.el = document.createElement('div');
   this.el.className = 'pillbox';
-  this.el.style = input.style;
+  try {
+    this.el.style = input.style;
+  } catch (e) {
+    // IE8 just can't handle this
+  }
   input.parentNode.insertBefore(this.el, input);
   input.parentNode.removeChild(input);
   this.el.appendChild(input);
@@ -75,7 +82,7 @@ Pillbox.prototype.unbind = function(){
  * @api private
  */
 
-Pillbox.prototype.onkeydown = function(e){
+Pillbox.prototype.onkeydown = normalize(function(e){
   switch (keyname(e.which)) {
     case 'enter':
       e.preventDefault();
@@ -94,7 +101,7 @@ Pillbox.prototype.onkeydown = function(e){
       }
       break;
   }
-};
+});
 
 /**
  * Handle click.
@@ -149,7 +156,7 @@ Pillbox.prototype.last = function(){
 
 Pillbox.prototype.add = function(tag) {
   var self = this
-  tag = tag.trim();
+  tag = trim(tag);
 
   // blank
   if ('' == tag) return;
@@ -176,7 +183,7 @@ Pillbox.prototype.add = function(tag) {
   var del = document.createElement('a');
   del.appendChild(document.createTextNode('✕'));
   del.href = '#';
-  del.onclick = this.remove.bind(this, tag);
+  del.onclick = bind(this, this.remove, tag);
   span.appendChild(del);
 
   this.el.insertBefore(span, this.input);
@@ -208,4 +215,3 @@ Pillbox.prototype.remove = function(tag) {
 
   return this;
 }
-
