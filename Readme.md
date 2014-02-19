@@ -39,6 +39,8 @@ input.on('remove', function(tag){
   Initialize with the given `input` element and `options`. Available options include:
 
   * `lowercase`: all added tags get converted to lowercase.
+  * `allowSpace`: allow spaces in tags.
+  * `space`: inverse of allowSpace (backwards support).
 
 ### Pillbox#add(tag)
 

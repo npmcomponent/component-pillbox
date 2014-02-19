@@ -90,7 +90,8 @@ Pillbox.prototype.onkeydown = normalize(function(e){
       e.target.value = '';
       break;
     case 'space':
-      if (!this.options.space) return;
+      if (this.options.space === false || this.options.allowSpace === true) 
+        return;
       e.preventDefault();
       this.add(e.target.value);
       e.target.value = '';
