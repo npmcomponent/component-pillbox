@@ -2,14 +2,14 @@
  * Module dependencies.
  */
 
-var Emitter = require('emitter')
-  , keyname = require('keyname')
-  , events = require('events')
-  , each = require('each')
-  , Set = require('set')
-  , bind = require('bind')
-  , trim = require('trim')
-  , normalize = require('normalize');
+var Emitter = require('component-emitter')
+  , keyname = require('component-keyname')
+  , events = require('component-events')
+  , each = require('component-each')
+  , Set = require('component-set')
+  , bind = require('component-bind')
+  , trim = require('component-trim')
+  , normalize = require('stephenmathieson-normalize');
 
 /**
  * Expose `Pillbox`.
